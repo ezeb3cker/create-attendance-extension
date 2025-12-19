@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iniciar atendimento</title>
+
+
+  <script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient.js"></script>
+
+<script>
+  window.WlExtension.initialize({
+    buttons: {
+      "attendance-list": [
+        {
+          text: "Iniciar atendimento",
+          callback: () => {
+            window.WlExtension.modal({
+              url: "create-attendance.vercel.app",
+              title: "Iniciar atendimento",
+              maxWidth: "60%",
+              height: "55%",
+            });
+          },
+        },
+      ],
+    },
+  });
+</script>
+</head>
+<body></body>
+</html>
