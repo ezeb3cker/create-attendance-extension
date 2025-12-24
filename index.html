@@ -9,23 +9,38 @@
   <script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient.js"></script>
 
 <script>
-  window.WlExtension.initialize({
-    buttons: {
-      "attendance-list": [
-        {
-          text: "Iniciar atendimento",
-          callback: () => {
-            window.WlExtension.modal({
-              url: "https://create-attendance.vercel.app/",
-              title: "Iniciar atendimento",
-              maxWidth: "60%",
-              height: "55%",
-            });
-          },
+  // Aguarda o carregamento completo do script antes de inicializar
+  function initExtension() {
+    if (typeof window.WlExtension !== 'undefined' && window.WlExtension.initialize) {
+      window.WlExtension.initialize({
+        buttons: {
+          "attendance-list": [
+            {
+              text: "Iniciar atendimento",
+              callback: () => {
+                window.WlExtension.modal({
+                  url: "https://create-attendance.vercel.app/",
+                  title: "Iniciar atendimento",
+                  maxWidth: "60%",
+                  height: "55%",
+                });
+              },
+            },
+          ],
         },
-      ],
-    },
-  });
+      });
+    } else {
+      // Se ainda não estiver disponível, tenta novamente após um pequeno delay
+      setTimeout(initExtension, 100);
+    }
+  }
+
+  // Inicia quando o DOM estiver pronto e o script carregado
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initExtension);
+  } else {
+    initExtension();
+  }
 </script>
 </head>
 <body></body>
